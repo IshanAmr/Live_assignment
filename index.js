@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const { getAllTasksForAProject, createTaskArray, addNewTask, getAllTasks, getPendingTasks, getTasksForAPerson, sortTaskByPriority } = require('./tasks');
+const { getAllTasksForAProject, createTaskArray, addNewTask, getAllTasks, getPendingTasks, getTasksForAPerson, sortTaskByPriority, updateStatus } = require('./tasks');
 app.use(cors());
 app.use(express.json());
 
@@ -86,6 +86,17 @@ app.get('/tasks/sort/by-priority', (req, res) => {
         res.status(200).json(tasks);
     } catch (error) {
         res.status(500).json({ message : 'Internal Server Error'});
+    }
+})
+
+app.post('/tasks/:id/status', (req, res) => {
+    try {
+        const id = parseInt(req.params.id);
+       const { status } = req.body;
+       updateStatus(id, status);
+       res.status(200).send('Status Updated SUccessfully');
+    } catch (error) {
+        res.status(500).json({ message : 'Internal Server Error'})
     }
 })
 

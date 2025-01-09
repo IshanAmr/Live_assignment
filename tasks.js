@@ -91,6 +91,14 @@ const getAllTasks = () => {
     return tasks;
 }
 
+const updateStatus = (id, newStatus) => {
+    for(let i=0;i<tasks.length;i++) {
+        if(tasks[i].id === id) {
+            tasks[i].status = newStatus;
+        }
+    }
+}
+
 
 module.exports = {
     getAllTasksForAProject,
@@ -99,5 +107,6 @@ module.exports = {
     getAllTasks,
     getPendingTasks,
     getTasksForAPerson,
-    sortTaskByPriority
+    sortTaskByPriority,
+    updateStatus
 }
